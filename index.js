@@ -1,15 +1,24 @@
 import express from 'express';
 import mongoose from 'mongoose'
+import Post from "./Post.js";
 
 const PORT = 5000;
-const DB_URL = `mongodb+srv://epytnave:243598mo@cluster0.lnmpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+const DB_URL = `mongodb+srv://user:123@cluster0.lnmpm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 const app = express();
 
-app.use(express.json);
+app.use(express.json());
 
-app.post('/', (req, res) => {
-    res.status(200).json('Server working')
+app.post('/', async (req, res) => {
+    try {
+        const {author, title, content, picture} = req.body;
+
+        const post = await Post.create({author, title, content, picture});
+
+        res.json(post)
+    } catch (e) {
+        res.status(500).json(e);
+    }
 })
 
 async function startApp() {
