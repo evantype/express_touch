@@ -9,6 +9,7 @@ const DB_URL = `mongodb+srv://user:123@cluster0.lnmpm.mongodb.net/myFirstDatabas
 const app = express();
 
 app.use(express.json());
+app.use(express.static('static'));
 app.use(fileUpload({}));
 app.use('/api', router);
 
